@@ -34,7 +34,7 @@ public class MicroServicesPauseTime extends Application {
         chart = buildScatterChart(
                 "Pause Times",
                 "Chain Length",
-                "P(pause)");
+                "P(no pause)");
 
         Label numberOfNodesLabel = new Label("Number of Nodes: ");
         Label gcOverHead = new Label("GC Overhead: ");
@@ -63,7 +63,7 @@ public class MicroServicesPauseTime extends Application {
         yAxis.setLabel(yAxisLabel);
         ScatterChart<Number,Number> chart = new ScatterChart<>(xAxis,yAxis);
         chart.setTitle(title);
-        pauseEvents.setName("Heap Occupancy");
+        pauseEvents.setName("No Pause");
         chart.getData().add(pauseEvents);
         return chart;
     }

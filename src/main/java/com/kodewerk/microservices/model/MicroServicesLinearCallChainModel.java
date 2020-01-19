@@ -12,12 +12,15 @@ public class MicroServicesLinearCallChainModel {
 
     public MicroServicesLinearCallChainModel() {}
 
+    // number of pauses == 1
     public void probabilityOfHittingAPause(ObservableList<XYChart.Data<Number, Number>> data, int numberOfNodes, int probabilityOfBeingInAPause) {
-        double overhead = 1.00d - ((double) probabilityOfBeingInAPause / 100.0d);
+        double pauseProbability = (double) probabilityOfBeingInAPause / 100.0d;
+        double running = 1.00d - pauseProbability;
         for (int i = 1; i < numberOfNodes; i++) {
             int callChainLength = (i * 2) - 1;
-            double prob = 1.00d - Math.pow( overhead, (double)callChainLength);
-            data.add(new XYChart.Data(i, prob));
+            double noPauseProbability = Math.pow( running, (double)callChainLength);// * pauseProbability * callChainLength;
+            System.out.println(i + ", " + noPauseProbability);
+            data.add(new XYChart.Data(i, noPauseProbability));
         }
     }
 }
