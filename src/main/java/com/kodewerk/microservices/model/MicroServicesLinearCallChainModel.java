@@ -12,7 +12,7 @@ public class MicroServicesLinearCallChainModel {
 
     public MicroServicesLinearCallChainModel() {}
 
-    // number of pauses == 1
+    // number of pauses == 0
     public void probabilityOfHittingAPause(ObservableList<XYChart.Data<Number, Number>> data, int numberOfNodes, int probabilityOfBeingInAPause) {
         double pauseProbability = (double) probabilityOfBeingInAPause / 100.0d;
         double running = 1.00d - pauseProbability;
