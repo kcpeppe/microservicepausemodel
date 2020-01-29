@@ -1,4 +1,4 @@
-package kodewerk.microservices.model;
+package kodewerk.microservices.util;
 
 import java.util.Arrays;
 
@@ -22,15 +22,15 @@ public class Histogram {
      */
     private void calculateBinSize(Integer[] dataPoints) {
         int numberOfBins = (int)(Math.floor(Math.sqrt((double)dataPoints.length))) + 1;
-        double range = (double)(dataPoints[dataPoints.length-1] - dataPoints[0]) / (double)numberOfBins;
+        double range = (double)(dataPoints[dataPoints.length-1]) / (double)numberOfBins;
         double rounded = Math.ceil(range * Math.pow(10, -Math.floor(Math.log10(range)))) / Math.pow(10, -Math.floor(Math.log10(range)));
         int digits = 0;
-        while ( rounded >= 5) {
+        while ( rounded >= 5.0d) {
             digits++;
             rounded /= 10;
         }
         binSize = (int)Math.pow(10.0d, (double) digits);
-        numberOfBins = ((dataPoints[dataPoints.length-1] - dataPoints[0]) / binSize) + 1;
+        numberOfBins = (dataPoints[dataPoints.length-1] / binSize) + 1;
         bins = new int[numberOfBins];
     }
 
@@ -48,11 +48,5 @@ public class Histogram {
 
     public int getBinSize() {
         return binSize;
-    }
-
-    public void dump() {
-        for (int i = 0; i < bins.length; i++) {
-            System.out.println( (getBinSize() * i) + "-" + (getBinSize() * (i+1) + " : " + getBinCount(i)));
-        }
     }
 }

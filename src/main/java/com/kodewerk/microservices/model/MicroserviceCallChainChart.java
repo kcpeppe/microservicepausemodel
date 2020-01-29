@@ -22,18 +22,16 @@ import javafx.stage.Stage;
 
 public class MicroserviceCallChainChart extends Application {
 
-    private MicroServicesLinearCallChainModel model;
     private ScatterChart<Number, Number> chart;
     private XYChart.Series<Number,Number> pauseEvents = new XYChart.Series<>();
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Pause Event Model");
-        model = new MicroServicesLinearCallChainModel();
+        primaryStage.setTitle("No Pause Event Model");
 
         chart = buildScatterChart(
-                "Pause Times",
-                "Chain Length",
+                "P(no GC @ node count)",
+                "Node Counts",
                 "P(no pause)");
 
         Label numberOfNodesLabel = new Label("Number of Nodes: ");
@@ -44,7 +42,7 @@ public class MicroserviceCallChainChart extends Application {
 
         button.setOnAction((event)-> {
             ObservableList<XYChart.Data<Number, Number>> probabilityOfSeeingAPause = FXCollections.observableArrayList();
-            model.probabilityOfHittingAPause(probabilityOfSeeingAPause, Integer.valueOf(numberOfNodesInputBox.getText()),Integer.valueOf(gcOverHeadInputSource.getText()));
+            probabilityOfHittingAPause(probabilityOfSeeingAPause, Integer.valueOf(numberOfNodesInputBox.getText()),Integer.valueOf(gcOverHeadInputSource.getText()));
             pauseEvents.getData().setAll(probabilityOfSeeingAPause);
         });
 
@@ -63,8 +61,17 @@ public class MicroserviceCallChainChart extends Application {
         yAxis.setLabel(yAxisLabel);
         ScatterChart<Number,Number> chart = new ScatterChart<>(xAxis,yAxis);
         chart.setTitle(title);
-        pauseEvents.setName("No Pause");
+        pauseEvents.setName("Node Count");
         chart.getData().add(pauseEvents);
         return chart;
+    }
+
+    // number of pauses == 0
+    private void probabilityOfHittingAPause(ObservableList<XYChart.Data<Number, Number>> data, int numberOfNodes, int probabilityOfBeingInAPause) {
+        double pauseProbability = (double) probabilityOfBeingInAPause / 100.0d;
+        for (int i = 1; i < numberOfNodes; i++) {
+            double noPauseProbability = Math.pow( 1.00d - pauseProbability, (double)((i * 2) - 1));// * application_throughput * number_of_calls;
+            data.add(new XYChart.Data(i, noPauseProbability));
+        }
     }
 }

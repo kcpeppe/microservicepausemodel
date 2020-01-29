@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,8 +49,9 @@ public class MicroserviceTailLatencyDistributionChart extends Application {
         Button button = new Button("Compute");
 
         button.setOnAction((event) -> {
-            ObservableList<XYChart.Data<Number, Number>> latencyDistribution = FXCollections.observableArrayList();
-            model.calculateTailLatencies(pauseDurations.getData(), Integer.valueOf(numberOfNodes.getText()), Integer.valueOf(gcOverHead.getText()), Integer.valueOf(averagePauseTime.getText()), Integer.valueOf(arrivalRate.getText()));
+            ObservableList<XYChart.Data<String, Number>> latencyDistribution = FXCollections.observableArrayList();
+            model.calculateTailLatencies(latencyDistribution, Integer.valueOf(numberOfNodes.getText()), Integer.valueOf(gcOverHead.getText()), Integer.valueOf(averagePauseTime.getText()), Integer.valueOf(arrivalRate.getText()));
+            pauseDurations.getData().setAll(latencyDistribution);
         });
 
         HBox controls = new HBox(5, numberOfNodesLabel, numberOfNodes, gcOverHeadLabel, gcOverHead, averagePauseTimeLabel, averagePauseTime, arrivalRateLabel, arrivalRate, button);
