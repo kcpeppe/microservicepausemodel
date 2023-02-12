@@ -1,4 +1,4 @@
-package kodewerk.microservices.model;
+package com.kodewerk.microservices.model;
 
 /********************************************
  * Copyright (c) 2020 Kirk Pepperdine
@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import kodewerk.microservices.util.Combinations;
+import com.kodewerk.microservices.util.Combinations;
 
 
 public class MicroserviceExpectedPauseDistributionChart extends Application {

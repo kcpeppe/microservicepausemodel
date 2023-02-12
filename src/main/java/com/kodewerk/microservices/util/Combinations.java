@@ -1,4 +1,4 @@
-package kodewerk.microservices.util;
+package com.kodewerk.microservices.util;
 
 public class Combinations {
 

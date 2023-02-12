@@ -1,4 +1,4 @@
-package kodewerk.microservices.util;
+package com.kodewerk.microservices.util;
 
 import java.util.Arrays;
 

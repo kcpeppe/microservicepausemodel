@@ -4,8 +4,8 @@
         xmlns="http://maven.apache.org/POM/4.0.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.adoptopenjdk.bugs</groupId>
-    <artifactId>bugs</artifactId>
+    <groupId>com.kodewerk</groupId>
+    <artifactId>latency</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -14,23 +14,8 @@
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>14-ea+4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>14-ea+4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>14-ea+4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>14-ea+4</version>
+            <artifactId>javafx-controls</artifactId>
+            <version>19</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -38,4 +23,19 @@
             <version>3.6.1</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.kodewerk.microservices.model.MicroserviceTailLatencyDistributionChart</mainClass>
+                    <!-- mainClass>com.kodewerk.microservices.model.MicroserviceCallChainChart</mainClass -->
+                    <!-- mainClass>com.kodewerk.microservices.model.MicroserviceExpectedPauseDistributionChart</mainClass -->
+                    <!-- mainClass>com.kodewerk.microservices.model.MicroservicePauseDistributionChart</mainClass -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

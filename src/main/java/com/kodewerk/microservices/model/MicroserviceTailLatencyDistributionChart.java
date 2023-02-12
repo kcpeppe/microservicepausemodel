@@ -1,4 +1,4 @@
-package kodewerk.microservices.model;
+package com.kodewerk.microservices.model;
 
 /********************************************
  * Copyright (c) 2020 Kirk Pepperdine
@@ -38,10 +38,10 @@ public class MicroserviceTailLatencyDistributionChart extends Application {
                 "Pause durations",
                 "Number of Events");
 
-        Label numberOfNodesLabel = new Label("# of Nodes: ");
-        Label gcOverHeadLabel = new Label("GC Overhead: ");
+        Label numberOfNodesLabel = new Label("# of Nodes:                 ");
+        Label gcOverHeadLabel = new Label("GC Overhead:             ");
         Label averagePauseTimeLabel = new Label("Average Pause Time: ");
-        Label arrivalRateLabel = new Label("Arrival Rate: ");
+        Label arrivalRateLabel = new Label("Arrival Rate:                ");
         TextField numberOfNodes = new TextField("5");
         TextField gcOverHead = new TextField("5");
         TextField averagePauseTime = new TextField("100"); // milliseconds
@@ -54,10 +54,15 @@ public class MicroserviceTailLatencyDistributionChart extends Application {
             pauseDurations.getData().setAll(latencyDistribution);
         });
 
-        HBox controls = new HBox(5, numberOfNodesLabel, numberOfNodes, gcOverHeadLabel, gcOverHead, averagePauseTimeLabel, averagePauseTime, arrivalRateLabel, arrivalRate, button);
-        VBox root = new VBox(5, controls, chart);
+        HBox numberOfnodesControls = new HBox(10, numberOfNodesLabel, numberOfNodes);
+        HBox gcOverHeadControls = new HBox(10, gcOverHeadLabel, gcOverHead);
+        HBox averagePauseTimeControls = new HBox(10, averagePauseTimeLabel, averagePauseTime);
+        HBox arrivalRateControls = new HBox(10, arrivalRateLabel, arrivalRate);
+        VBox controls = new VBox(10, numberOfnodesControls, gcOverHeadControls, averagePauseTimeControls, arrivalRateControls, button);
+        controls.setAlignment(Pos.BASELINE_LEFT);
+        HBox root = new HBox(5, controls, chart);
         root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root, 900, 360);
+        Scene scene = new Scene(root, 1200, 360);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

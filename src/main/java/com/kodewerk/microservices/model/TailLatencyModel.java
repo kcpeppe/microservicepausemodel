@@ -1,9 +1,9 @@
-package kodewerk.microservices.model;
+package com.kodewerk.microservices.model;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
-import kodewerk.microservices.util.Combinations;
-import kodewerk.microservices.util.Histogram;
+import com.kodewerk.microservices.util.Combinations;
+import com.kodewerk.microservices.util.Histogram;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,16 +21,20 @@ public class TailLatencyModel {
         int callChainLength = (numberOfNodes * 2) - 1;
         Combinations combinations = new Combinations(callChainLength);
         ArrayList<Integer> pauseTimes = new ArrayList<>();
-        for (int i = 1; i <= callChainLength; i++) {
-            deadTime += averagePauseTime;
+        int k = 0;
+        for (int i = 0; i <= callChainLength; i++) {
             long pathCount = combinations.combinations(i);
             double pauseEventProbability = Math.pow( pauseProbability, (double)i);
             double noPauseProbability = Math.pow( running, (double)(callChainLength - i));
             int numberOfStalledByNGCs = (int)Math.round(noPauseProbability*pauseEventProbability * (double)pathCount * arrivalRate);
+            k += numberOfStalledByNGCs;
             for (int j = 0; j < numberOfStalledByNGCs; j++) {
-                int p = pauseTime.nextInt(1, deadTime);
+                int p = 0;
+                if ( deadTime != 0)
+                    p = pauseTime.nextInt(1, deadTime);
                 pauseTimes.add(p);
             }
+            deadTime += averagePauseTime;
         }
 
         Histogram histogram = new Histogram(pauseTimes.toArray(new Integer[0]));

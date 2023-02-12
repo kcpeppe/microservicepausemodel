@@ -1,4 +1,4 @@
-package kodewerk.microservices.model;
+package com.kodewerk.microservices.model;
 
 /********************************************
  * Copyright (c) 2020 Kirk Pepperdine
