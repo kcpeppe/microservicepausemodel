@@ -1,6 +1,8 @@
 # microservicepausemodel
 Micro-services pause time model effect on latency
 
+the models estimates different types of expected latency that a microservices call chain will impose on the application. This latency is built in an is in addition to the latency needed to complete each end user request.
+
 mvn javafx:run <--- runs the currently configured Application
 
 There are current 4 different applications which will be merged in the future
